@@ -3,7 +3,7 @@ package io.jcervelin.fruitshop.cart.usecases;
 import io.jcervelin.fruitshop.cart.config.UnitTestingSupport;
 import io.jcervelin.fruitshop.cart.domains.CartResponse;
 import io.jcervelin.fruitshop.cart.domains.Fruit;
-import io.jcervelin.fruitshop.cart.gateways.FruitGateway;
+import io.jcervelin.fruitshop.cart.gateways.mongo.FruitGateway;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

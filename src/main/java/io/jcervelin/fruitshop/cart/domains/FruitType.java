@@ -13,4 +13,11 @@ public enum FruitType {
     private final String fruit;
     private final Double price;
 
+    public Fruit convertFruitTypeToFruit() {
+        return Fruit.builder()
+                .fruit(fruit)
+                .price(price)
+                .build();
+    }
+
 }

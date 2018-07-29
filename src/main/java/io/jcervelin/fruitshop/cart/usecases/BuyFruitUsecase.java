@@ -2,26 +2,27 @@ package io.jcervelin.fruitshop.cart.usecases;
 
 import io.jcervelin.fruitshop.cart.domains.CartResponse;
 import io.jcervelin.fruitshop.cart.domains.Fruit;
-import io.jcervelin.fruitshop.cart.gateways.FruitGateway;
+import io.jcervelin.fruitshop.cart.gateways.mongo.FruitGateway;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
-public class BuyFruitUsecase {
+public class BuyFruitUsecase implements FruitUseCase {
 
     @Autowired
     private final FruitGateway fruitGateway;
 
     public CartResponse startUseCase(final Collection<String> fruits) {
-
+        log.info(">> BuyFruitUsecase.BuyFruitUsecase fruits: {}", fruits);
         final Collection<Fruit> priceFruits = fruitGateway.findAll();
 
         final List<Fruit> fruitsWithPrice = CollectionUtils.emptyIfNull(fruits).stream()
@@ -44,13 +45,11 @@ public class BuyFruitUsecase {
                 .reduce(Double::sum)
                 .orElse(0d);
 
+        log.info("<< BuyFruitUsecase.BuyFruitUsecase fruits");
         return CartResponse.builder()
                 .fruits(fruitsWithPrice)
                 .total(total)
                 .build();
     }
 
-    private Predicate<Fruit> verifyFruitAvailability (final String str) {
-        return fruit -> fruit.getFruit().equalsIgnoreCase(str);
-    }
 }

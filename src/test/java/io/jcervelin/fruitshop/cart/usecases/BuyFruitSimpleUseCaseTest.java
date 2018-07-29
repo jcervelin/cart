@@ -1,5 +1,6 @@
 package io.jcervelin.fruitshop.cart.usecases;
 
+import io.jcervelin.fruitshop.cart.config.UnitTestingSupport;
 import io.jcervelin.fruitshop.cart.domains.CartResponse;
 import io.jcervelin.fruitshop.cart.domains.Fruit;
 import io.jcervelin.fruitshop.cart.domains.FruitType;
@@ -8,9 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,8 +22,7 @@ import static io.jcervelin.fruitshop.cart.templates.FruitTemplates.APPLE;
 import static io.jcervelin.fruitshop.cart.templates.FruitTemplates.ORANGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(MockitoJUnitRunner.class)
-public class BuyFruitSimpleUseCaseTest {
+public class BuyFruitSimpleUseCaseTest extends UnitTestingSupport {
 
     private static final String TEMPLATE_PACKAGE = "io.jcervelin.fruitshop.cart";
     @Rule

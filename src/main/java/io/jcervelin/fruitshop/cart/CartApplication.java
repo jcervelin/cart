@@ -2,8 +2,11 @@ package io.jcervelin.fruitshop.cart;
 
 import io.jcervelin.fruitshop.cart.domains.CartResponse;
 import io.jcervelin.fruitshop.cart.domains.Fruit;
-import io.jcervelin.fruitshop.cart.gateways.FruitGateway;
+import io.jcervelin.fruitshop.cart.gateways.mongo.FruitGateway;
 import io.jcervelin.fruitshop.cart.usecases.BuyFruitSimpleUseCase;
+import io.jcervelin.fruitshop.cart.usecases.BuyFruitWithOffersUseCase;
+import io.jcervelin.fruitshop.cart.usecases.FruitUseCase;
+import io.jcervelin.fruitshop.cart.usecases.offers.Offer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -25,7 +28,7 @@ public class CartApplication implements CommandLineRunner {
 	private FruitGateway fruitGateway;
 
 	@Autowired
-	private BuyFruitSimpleUseCase simpleUseCase;
+	private List<Offer> offers;
 
 	@Override
 	public void run(String... args) {
@@ -38,12 +41,15 @@ public class CartApplication implements CommandLineRunner {
                 .price(60L)
                 .build());
 
+        final FruitUseCase useCase = new BuyFruitWithOffersUseCase(offers,new BuyFruitSimpleUseCase());
+
 		final List<String> candidate1Cart = Arrays.asList("Orange","Apple","Orange");
 		final List<String> candidate2Cart = Arrays.asList("Orange","Orange","Orange","Apple");
 
-		final CartResponse cartToCandidate1 = simpleUseCase.startUseCase(candidate1Cart);
-		final CartResponse cartToCandidate2 = simpleUseCase.startUseCase(candidate2Cart);
+		final CartResponse cartToCandidate1 = useCase.startUseCase(candidate1Cart);
+		final CartResponse cartToCandidate2 = useCase.startUseCase(candidate2Cart);
 		log.info("Candidate 1's cart: {}",cartToCandidate1);
 		log.info("Candidate 2's cart: {}",cartToCandidate2);
 	}
+
 }
