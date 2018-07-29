@@ -20,7 +20,7 @@ import static java.util.stream.Collectors.toList;
 public class BuyFruitSimpleUseCase implements FruitUseCase {
 
     public CartResponse startUseCase(final Collection<String> fruits) {
-        log.info(">> BuyFruitSimpleUseCase.startUseCase fruits: {}",fruits);
+        log.info(">> Fruits: {}",fruits);
 
         final List<Fruit> fruitTypeList = Arrays.asList(FruitType.values())
                 .stream()
@@ -41,11 +41,12 @@ public class BuyFruitSimpleUseCase implements FruitUseCase {
                         .build()
                 ).collect(toList());
 
-        log.info("<< BuyFruitSimpleUseCase.startUseCase");
-        return CartResponse.builder()
+        final CartResponse cartResponse = CartResponse.builder()
                 .fruits(fruitsWithPrice)
                 .total(getTotal(fruitsWithPrice))
                 .build();
+        log.info("<< CartResponse: {}",cartResponse);
+        return cartResponse;
     }
 
     private Fruit convert(FruitType type) {

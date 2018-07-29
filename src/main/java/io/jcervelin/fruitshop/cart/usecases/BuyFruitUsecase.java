@@ -22,7 +22,7 @@ public class BuyFruitUsecase implements FruitUseCase {
     private final FruitGateway fruitGateway;
 
     public CartResponse startUseCase(final Collection<String> fruits) {
-        log.info(">> BuyFruitUsecase.BuyFruitUsecase fruits: {}", fruits);
+        log.info(">> Fruits: {}", fruits);
         final Collection<Fruit> priceFruits = fruitGateway.findAll();
 
         final List<Fruit> fruitsWithPrice = CollectionUtils.emptyIfNull(fruits).stream()
@@ -40,16 +40,12 @@ public class BuyFruitUsecase implements FruitUseCase {
                 ).collect(Collectors.toList());
 
 
-        final Double total = fruitsWithPrice.stream()
-                .map(Fruit::getPrice)
-                .reduce(Double::sum)
-                .orElse(0d);
-
-        log.info("<< BuyFruitUsecase.BuyFruitUsecase fruits");
-        return CartResponse.builder()
+        final CartResponse cartResponse = CartResponse.builder()
                 .fruits(fruitsWithPrice)
-                .total(total)
+                .total(getTotal(fruitsWithPrice))
                 .build();
+        log.info("<< CartResponse: {}",cartResponse);
+        return cartResponse;
     }
 
 }

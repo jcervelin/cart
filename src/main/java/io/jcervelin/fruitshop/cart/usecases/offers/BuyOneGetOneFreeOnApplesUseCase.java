@@ -12,12 +12,12 @@ public class BuyOneGetOneFreeOnApplesUseCase implements Offer {
 
     @Override
     public void execute(final CartResponse response) {
-        log.info(">> BuyOneGetOneFreeOnApplesUseCase.execute CartResponse: {}",response);
+        log.info(">> CartResponse: {}",response);
         final Fruit apple = FruitType.APPLE.convertFruitTypeToFruit();
 
         if (response.getFruits().size() >= 1) {
             response.getFruits().add(apple);
         }
-        log.info("<< BuyOneGetOneFreeOnApplesUseCase.execute CartResponse: {}",response);
+        log.info("<< CartResponse: {}",response);
     }
 }

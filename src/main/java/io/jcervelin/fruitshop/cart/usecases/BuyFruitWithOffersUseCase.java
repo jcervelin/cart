@@ -20,10 +20,10 @@ public class BuyFruitWithOffersUseCase implements FruitUseCase {
 
     @Override
     public CartResponse startUseCase(Collection<String> fruits) {
-        log.info(">> BuyFruitWithOffersUseCase.startUseCase fruits: {}", fruits);
+        log.info(">> Fruits: {}", fruits);
         final CartResponse cartResponse = decorated.startUseCase(fruits);
         offers.forEach(offer -> offer.execute(cartResponse));
-        log.info("<< BuyFruitWithOffersUseCase.startUseCase cartResponse: {}", cartResponse);
+        log.info("<< CartResponse: {}", cartResponse);
         return cartResponse;
     }
 }

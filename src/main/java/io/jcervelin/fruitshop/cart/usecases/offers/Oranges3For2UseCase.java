@@ -12,7 +12,7 @@ public class Oranges3For2UseCase implements Offer {
 
     @Override
     public void execute(CartResponse response) {
-        log.info(">> Oranges3For2UseCase.execute CartResponse: {}",response);
+        log.info(">> CartResponse: {}",response);
 
         final Fruit orange = FruitType.ORANGE.convertFruitTypeToFruit();
 
@@ -30,6 +30,6 @@ public class Oranges3For2UseCase implements Offer {
         double newTotal = response.getTotal() - (freeOranges * orange.getPrice());
 
         response.setTotal(newTotal);
-        log.info("<< Oranges3For2UseCase.execute CartResponse: {}",response);
+        log.info("<< CartResponse: {}",response);
     }
 }
