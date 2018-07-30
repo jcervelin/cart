@@ -41,15 +41,30 @@ public class CartApplication implements CommandLineRunner {
                 .price(60L)
                 .build());
 
-        final FruitUseCase useCase = new BuyFruitWithOffersUseCase(offers,new BuyFruitSimpleUseCase());
-
+        //GIVEN a list of fruits
 		final List<String> candidate1Cart = Arrays.asList("Orange","Apple","Orange");
 		final List<String> candidate2Cart = Arrays.asList("Orange","Orange","Orange","Apple");
 
+        FruitUseCase useCase = new BuyFruitSimpleUseCase();
+
+        // WHEN a candidate buy some fruits without offer
 		final CartResponse cartToCandidate1 = useCase.startUseCase(candidate1Cart);
 		final CartResponse cartToCandidate2 = useCase.startUseCase(candidate2Cart);
+
+		// THEN...
 		log.info("Candidate 1's cart: {}",cartToCandidate1);
 		log.info("Candidate 2's cart: {}",cartToCandidate2);
+
+		// GIVEN another (or the same) candidate with a CUPOM
+		useCase = new BuyFruitWithOffersUseCase(offers,useCase);
+
+		//WHEN they buy some fruits with discount
+		final CartResponse cartToCandidate3 = useCase.startUseCase(candidate1Cart);
+		final CartResponse cartToCandidate4 = useCase.startUseCase(candidate2Cart);
+
+		//THEN they earn discount and free fruits
+		log.info("Candidate 3's cart: {}",cartToCandidate3);
+		log.info("Candidate 4's cart: {}",cartToCandidate4);
 	}
 
 }
