@@ -49,4 +49,22 @@ public class Oranges3For2UseCaseTest extends UnitTestingSupport {
         assertThat(cartResponseBeforeOffers.getTotal()).isEqualTo(expected.getTotal());
         assertThat(cartResponseBeforeOffers.getFruits()).containsExactlyInAnyOrderElementsOf((expected.getFruits()));
     }
+
+    @Test
+    public void shouldGiveDiscountForThe7Oranges() {
+        // GIVEN 7 oranges
+        final CartResponse cartResponseBeforeOffers = from(CartResponse.class)
+                .gimme(CART_7_ORANGES);
+
+        final CartResponse expected = from(CartResponse.class)
+                .gimme(CART_7_ORANGES_2_FOR_FREE);
+
+        //WHEN orange offer is applied
+        target.execute(cartResponseBeforeOffers);
+
+        //THEN a discount of 50p (2 oranges) is applied over total
+        assertThat(cartResponseBeforeOffers.getFruits().size()).isEqualTo(7);
+        assertThat(cartResponseBeforeOffers.getTotal()).isEqualTo(125L);
+        assertThat(cartResponseBeforeOffers.getFruits()).containsExactlyInAnyOrderElementsOf((expected.getFruits()));
+    }
 }
