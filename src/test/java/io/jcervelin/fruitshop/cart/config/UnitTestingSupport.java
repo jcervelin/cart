@@ -4,7 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static br.com.six2six.fixturefactory.loader.FixtureFactoryLoader.loadTemplates;
 

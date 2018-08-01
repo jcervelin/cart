@@ -7,8 +7,8 @@ import io.jcervelin.fruitshop.cart.usecases.BuyFruitSimpleUseCase;
 import io.jcervelin.fruitshop.cart.usecases.BuyFruitWithOffersUseCase;
 import io.jcervelin.fruitshop.cart.usecases.FruitUseCase;
 import io.jcervelin.fruitshop.cart.usecases.offers.Offer;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,17 +18,16 @@ import java.util.List;
 
 @SpringBootApplication
 @Slf4j
+@RequiredArgsConstructor
 public class CartApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CartApplication.class, args);
 	}
 
-	@Autowired
-	private FruitGateway fruitGateway;
+	private final FruitGateway fruitGateway;
 
-	@Autowired
-	private List<Offer> offers;
+	private final List<Offer> offers;
 
 	@Override
 	public void run(String... args) {
@@ -55,7 +54,7 @@ public class CartApplication implements CommandLineRunner {
 		log.info("Candidate 1's cart: {}",cartToCandidate1);
 		log.info("Candidate 2's cart: {}",cartToCandidate2);
 
-		// GIVEN another (or the same) candidate with a CUPOM
+		// GIVEN another (or the same) candidate with a coupon
 		useCase = new BuyFruitWithOffersUseCase(offers,useCase);
 
 		//WHEN they buy some fruits with discount

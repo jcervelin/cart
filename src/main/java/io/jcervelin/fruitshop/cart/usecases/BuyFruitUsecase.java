@@ -6,7 +6,6 @@ import io.jcervelin.fruitshop.cart.gateways.mongo.FruitGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -18,7 +17,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BuyFruitUsecase implements FruitUseCase {
 
-    @Autowired
     private final FruitGateway fruitGateway;
 
     public CartResponse startUseCase(final Collection<String> fruits) {

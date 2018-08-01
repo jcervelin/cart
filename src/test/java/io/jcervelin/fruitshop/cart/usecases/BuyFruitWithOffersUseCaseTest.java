@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.internal.util.reflection.Whitebox;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static br.com.six2six.fixturefactory.Fixture.from;
@@ -94,7 +95,7 @@ public class BuyFruitWithOffersUseCaseTest extends UnitTestingSupport {
         final CartResponse expected = from(CartResponse.class)
                 .gimme(EMPTY_CART);
 
-        final List<String> stringFruits = Arrays.asList("");
+        final List<String> stringFruits = Collections.singletonList("");
 
         Whitebox.setInternalState(target,"offers",offers);
 

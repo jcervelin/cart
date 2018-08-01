@@ -22,8 +22,7 @@ public class BuyFruitSimpleUseCase implements FruitUseCase {
     public CartResponse startUseCase(final Collection<String> fruits) {
         log.info(">> Fruits: {}",fruits);
 
-        final List<Fruit> fruitTypeList = Arrays.asList(FruitType.values())
-                .stream()
+        final List<Fruit> fruitTypeList = Arrays.stream(FruitType.values())
                 .map(this::convert)
                 .collect(toList());
 
